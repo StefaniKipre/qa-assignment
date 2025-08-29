@@ -32,7 +32,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18' # We'll use Node.js version 18.
+          node-version: '20' # We'll use Node.js version 20.
 
       # Step 3: Install dependencies.
       # 'npm ci' is a more reliable way to install dependencies in a CI environment than 'npm install'.
