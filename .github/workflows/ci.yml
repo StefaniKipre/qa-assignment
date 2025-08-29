@@ -1,0 +1,49 @@
+# This workflow name will appear in the "Actions" tab of your GitHub repository.
+name: Cypress CI
+
+# This section defines when the workflow will run.
+on:
+  # The workflow is triggered on every push to the 'main' branch.
+  push:
+    branches:
+      - main
+  
+  # The workflow is also triggered on a schedule (e.g., every day at 12:00 AM UTC).
+  # This is useful for nightly runs to ensure everything is working even if there are no code changes.
+  schedule:
+    - cron: '0 0 * * *' # At 00:00 UTC every day.
+
+# A workflow run is made up of one or more jobs that run in parallel.
+jobs:
+  # This job will build the project and run the Cypress tests.
+  build-and-test:
+    # We specify the runner environment. Ubuntu is a common and reliable choice.
+    runs-on: ubuntu-latest
+
+    # The steps a job should follow.
+    steps:
+      # Step 1: Check out the repository code.
+      # This action checks out your repository at the specific commit that triggered the workflow.
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Step 2: Set up the Node.js environment.
+      # This action installs Node.js on the runner, which is required to run Cypress.
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18' # We'll use Node.js version 18.
+
+      # Step 3: Install dependencies.
+      # 'npm ci' is a more reliable way to install dependencies in a CI environment than 'npm install'.
+      - name: Install dependencies
+        run: npm ci
+
+      # Step 4: Run Cypress tests.
+      # This is the main step that executes your Cypress test suite.
+      # The Cypress action handles the details of installing Cypress and running the tests.
+      - name: Run Cypress tests
+        uses: cypress-io/github-action@v6
+        with:
+          # This specifies the command to run your Cypress tests.
+          command: npm run cypress:run
