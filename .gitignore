@@ -1,0 +1,22 @@
+# Node modules
+node_modules/
+
+# Cypress generated files
+cypress/videos/
+cypress/screenshots/
+cypress/results/
+cypress/reports/
+
+# Environment variables
+cypress.env.json
+
+# IDE and OS generated files
+.DS_Store
+.env
+.vscode/
+.idea/
+
+# npm debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
